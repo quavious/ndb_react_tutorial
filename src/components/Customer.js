@@ -1,17 +1,22 @@
 import React, {Component} from "react";
-
+import {TableRow, TableCell} from "@material-ui/core";
 class Customer extends Component {
     render() {
         const {id, image, name, birth, gender, job} = this.props.info
         return (
-            <div>
-                <CustomerProfile id={id} image={image} name={name}/>
-                <CustomerInfo birth={birth} gender={gender} job={job} />
-            </div>
+            <TableRow>
+                <TableCell>{id}</TableCell>
+                <TableCell><img src={image} alt={`poster_${id}`}/></TableCell>
+                <TableCell>{name}</TableCell>
+                <TableCell>{birth}</TableCell>
+                <TableCell>{gender}</TableCell>
+                <TableCell>{job}</TableCell>
+            </TableRow>
         )
     }
 }
 
+/*
 class CustomerProfile extends Component {
     render(){
         const {id, image, name} = this.props
@@ -36,5 +41,6 @@ class CustomerInfo extends Component {
         )
     }
 }
+*/
 
 export default Customer;
