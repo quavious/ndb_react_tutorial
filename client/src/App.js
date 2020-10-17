@@ -4,6 +4,7 @@ import {withStyles} from "@material-ui/core/styles"
 import axios from "axios";
 
 import CustomerHeader from "./components/CustomerHeader";
+import CustomerAdd from "./components/CustomerAdd";
 import Customer from "./components/Customer";
 import './App.css';
 
@@ -22,9 +23,20 @@ const styles = theme => ({
 })
 
 class App extends Component {
-  state = {
-    customers: [],
-    completed: 0,
+  constructor(props){
+    super(props)
+    this.state = {
+      customers : [],
+      completed : 0,
+    }
+  }
+
+  stateRefresh = () => {
+    this.setState({
+      customers: [],
+      completed: 0,
+    })
+    this.callApi()
   }
 
   callApi = async() => {
@@ -52,22 +64,25 @@ class App extends Component {
     const {classes} = this.props
     const {customers} = this.state;
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <CustomerHeader />
-          <TableBody>
-          {customers.length !== 0 ? customers.map(customer => {
-            return <Customer key={customer.id} info={customer} />
-          }) : 
-          <TableRow>
-            <TableCell colSpan="6" align="center">
-              <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed} />
-            </TableCell>
-          </TableRow>
-          }
-          </TableBody>
-        </Table>
-      </Paper>
+      <div>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <CustomerHeader />
+            <TableBody>
+            {customers.length !== 0 ? customers.map(customer => {
+              return <Customer key={customer.id} info={customer} stateRefresh={this.stateRefresh}/>
+            }) : 
+            <TableRow>
+              <TableCell colSpan="6" align="center">
+                <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed} />
+              </TableCell>
+            </TableRow>
+            }
+            </TableBody>
+          </Table>
+        </Paper>
+        <CustomerAdd refresh={this.stateRefresh}/>
+      </div>
     );
   }
 }
