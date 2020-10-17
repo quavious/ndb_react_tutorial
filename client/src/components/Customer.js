@@ -6,6 +6,7 @@ class Customer extends Component {
     render() {
         const {id, image, name, birth, gender, job} = this.props.info
         const {stateRefresh} = this.props
+        console.log(stateRefresh)
         return (
             <TableRow>
                 <TableCell>{id}</TableCell>

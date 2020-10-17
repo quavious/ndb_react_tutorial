@@ -23,6 +23,7 @@ app.use("/image", express.static("./upload"))
 
 app.get("/api/customers", (req, res) => {
     connection.query("select * from customer where isDeleted = 0", (err, rows, fields) => {
+        console.log(err)
         res.send(rows);
     })
 })
